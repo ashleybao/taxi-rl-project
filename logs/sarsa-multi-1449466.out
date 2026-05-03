@@ -1,0 +1,49 @@
+Run 1/30 with seed 58922320
+Run 2/30 with seed 58922321
+Run 3/30 with seed 58922322
+Run 4/30 with seed 58922323
+Run 5/30 with seed 58922324
+Run 6/30 with seed 58922325
+Run 7/30 with seed 58922326
+Run 8/30 with seed 58922327
+Run 9/30 with seed 58922328
+Run 10/30 with seed 58922329
+Run 11/30 with seed 58922330
+Run 12/30 with seed 58922331
+Run 13/30 with seed 58922332
+Run 14/30 with seed 58922333
+Run 15/30 with seed 58922334
+Run 16/30 with seed 58922335
+Run 17/30 with seed 58922336
+Run 18/30 with seed 58922337
+Run 19/30 with seed 58922338
+Run 20/30 with seed 58922339
+Run 21/30 with seed 58922340
+Run 22/30 with seed 58922341
+Run 23/30 with seed 58922342
+Run 24/30 with seed 58922343
+Run 25/30 with seed 58922344
+Run 26/30 with seed 58922345
+Run 27/30 with seed 58922346
+Run 28/30 with seed 58922347
+Run 29/30 with seed 58922348
+Run 30/30 with seed 58922349
+
+Done. Files written:
+  results/sarsa/multi_passenger/multi_passenger_learning_curve.png
+  results/sarsa/multi_passenger/multi_passenger_epsilon_schedule_effect.png
+  results/sarsa/multi_passenger/checkpoints/summary.json
+  results/sarsa/multi_passenger/checkpoints/summary.txt
+  results/sarsa/multi_passenger/checkpoints/best_multi_masked_static.npz
+  results/sarsa/multi_passenger/checkpoints/best_multi_unmasked_static.npz
+  results/sarsa/multi_passenger/checkpoints/best_multi_masked_decay.npz
+  results/sarsa/multi_passenger/checkpoints/best_multi_unmasked_decay.npz
+  results/sarsa/multi_passenger/q_tables/multi_masked_static_qtables.npy
+  results/sarsa/multi_passenger/q_tables/multi_unmasked_static_qtables.npy
+  results/sarsa/multi_passenger/q_tables/multi_masked_decay_qtables.npy
+  results/sarsa/multi_passenger/q_tables/multi_unmasked_decay_qtables.npy
+  results/sarsa/multi_passenger/rewards/masked_static_rewards.npy       # shape: (30, 20000)
+  results/sarsa/multi_passenger/rewards/unmasked_static_rewards.npy     # shape: (30, 20000)
+  results/sarsa/multi_passenger/rewards/masked_decay_rewards.npy        # shape: (30, 20000)
+  results/sarsa/multi_passenger/rewards/unmasked_decay_rewards.npy      # shape: (30, 20000)
+

@@ -1,0 +1,10 @@
+1. Decay ε all the way to 0 with more episodes at low ε. Right now you decay over 40k episodes (out of 50k), so the last 10k are at ε=0.01. That's not enough — at ε=0.01, only ~1.5 perturbations per 200-step episode, but those still rescue 90% of failing trajectories. Try ε_end = 0.0 and decay over only 25k episodes, leaving 25k pure-greedy episodes at the end. The agent will then actually roll out its greedy policy, see the loops/failures, and fix them.
+2. Increase max_steps. If failing greedy trajectories hit the 200-step timeout before the failure has time to propagate via TD updates, raising MAX_STEPS to 500 or 1000 lets the bad consequence catch up. Combined with option 1.
+3. Use a higher learning rate for the last phase. When ε is tiny and trajectories are nearly deterministic, you need updates to actually move the Q-values. α=0.1 might be too low for the final phase to fix entrenched errors fast enough.
+start with option 1 — it's the cleanest test. Modify the decay scripts:
+
+pythonEPSILON_START          = 1.0
+EPSILON_END            = 0.0          # was 0.01
+EPSILON_DECAY_EPISODES = 25000        # was 40000
+This forces the agent to spend the last 25,000 episodes at pure greedy. If the bug is real, those 25k episodes will repeatedly roll greedy → fail → propagate negative values → fix the failing argmax → roll greedy again → eventually succeed. By episode 50k, the greedy policy should actually work.
+Re-run the sbatch, re-run eval. Expected outcome: greedy eval should now match training reward (~+12 to +15, ~99% success).

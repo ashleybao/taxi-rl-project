@@ -1,0 +1,12 @@
+N_PASSENGERS           : 2
+EPISODES               : 50000
+EPSILON_START          : 1.0
+EPSILON_END            : 0.01
+EPSILON_DECAY_EPISODES : 40000
+LEARNING_RATE          : 0.1
+DISCOUNT_FACTOR        : 0.95
+
+Masked   mean: -49.6527
+Masked   std : 0.1579
+Unmasked mean: -279.3351
+Unmasked std : 0.5563

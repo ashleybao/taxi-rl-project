@@ -1,0 +1,26 @@
+Lmod has detected the following error: The following module(s) are unknown:
+"python/3.10"
+
+Please check the spelling or version number. Also try "module spider ..."
+It is also possible your cache file is out-of-date; it may help to try:
+  $ module --ignore_cache load "python/3.10"
+
+Also make sure that all modulefiles written in TCL start with the string
+#%Module
+
+
+
+Traceback (most recent call last):
+  File "/home/common/ji-bao-lin/taxi/bigger_taxi_runs.py", line 5, in <module>
+    import gymnasium as gym
+  File "/home/abao26/.local/lib/python3.9/site-packages/gymnasium/__init__.py", line 5, in <module>
+    from gymnasium.core import (
+  File "/home/abao26/.local/lib/python3.9/site-packages/gymnasium/core.py", line 11, in <module>
+    from gymnasium import spaces
+  File "/home/abao26/.local/lib/python3.9/site-packages/gymnasium/spaces/__init__.py", line 14, in <module>
+    from gymnasium.spaces.box import Box
+  File "/home/abao26/.local/lib/python3.9/site-packages/gymnasium/spaces/box.py", line 8, in <module>
+    from numpy.typing import NDArray
+  File "/usr/lib64/python3.9/site-packages/numpy/typing/__init__.py", line 158, in <module>
+    from numpy._typing import (
+ModuleNotFoundError: No module named 'numpy._typing'

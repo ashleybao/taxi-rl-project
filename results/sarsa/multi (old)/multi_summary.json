@@ -1,0 +1,102 @@
+{
+  "masked": [
+    {
+      "mean_reward": -3.63864,
+      "std_reward": 43.783159992746064
+    },
+    {
+      "mean_reward": -3.65876,
+      "std_reward": 43.64441814553609
+    },
+    {
+      "mean_reward": -3.68452,
+      "std_reward": 43.69144026430806
+    },
+    {
+      "mean_reward": -3.73232,
+      "std_reward": 43.782091172277276
+    },
+    {
+      "mean_reward": -3.67464,
+      "std_reward": 43.6936780423713
+    },
+    {
+      "mean_reward": -3.65918,
+      "std_reward": 43.68891554762604
+    },
+    {
+      "mean_reward": -3.70542,
+      "std_reward": 43.767749800779114
+    },
+    {
+      "mean_reward": -3.69914,
+      "std_reward": 43.88555460809855
+    },
+    {
+      "mean_reward": -3.63388,
+      "std_reward": 43.7154512288916
+    },
+    {
+      "mean_reward": -3.661,
+      "std_reward": 43.69453740457725
+    },
+    {
+      "mean_reward": -3.75674,
+      "std_reward": 43.747698506006
+    },
+    {
+      "mean_reward": -3.78634,
+      "std_reward": 43.91355837784499
+    }
+  ],
+  "unmasked": [
+    {
+      "mean_reward": -39.43618,
+      "std_reward": 103.61354219892108
+    },
+    {
+      "mean_reward": -39.15934,
+      "std_reward": 103.46508353432282
+    },
+    {
+      "mean_reward": -39.67834,
+      "std_reward": 104.02191189765934
+    },
+    {
+      "mean_reward": -39.78404,
+      "std_reward": 103.79194381684157
+    },
+    {
+      "mean_reward": -39.55318,
+      "std_reward": 103.79350601982573
+    },
+    {
+      "mean_reward": -39.81466,
+      "std_reward": 103.86441059903244
+    },
+    {
+      "mean_reward": -39.37422,
+      "std_reward": 103.7478168415683
+    },
+    {
+      "mean_reward": -39.8004,
+      "std_reward": 103.8902950223937
+    },
+    {
+      "mean_reward": -39.56748,
+      "std_reward": 103.90729409646659
+    },
+    {
+      "mean_reward": -39.4269,
+      "std_reward": 103.58725624510961
+    },
+    {
+      "mean_reward": -39.4196,
+      "std_reward": 103.6028301536208
+    },
+    {
+      "mean_reward": -39.70696,
+      "std_reward": 103.82583266007742
+    }
+  ]
+}

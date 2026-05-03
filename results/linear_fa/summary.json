@@ -1,0 +1,149 @@
+{
+  "taxiv3": [
+    {
+      "run": 1,
+      "seed": 58922320,
+      "mean_reward": -84.4543,
+      "std_reward": 77.48254456011367,
+      "eval_mean": -143.56,
+      "eval_std": 92.81531339170276,
+      "eval_success": 0.27
+    },
+    {
+      "run": 2,
+      "seed": 58922321,
+      "mean_reward": -84.0734,
+      "std_reward": 76.93176985121296,
+      "eval_mean": -136.862,
+      "eval_std": 95.99878622149345,
+      "eval_success": 0.302
+    },
+    {
+      "run": 3,
+      "seed": 58922322,
+      "mean_reward": -83.4444,
+      "std_reward": 77.03509790115153,
+      "eval_mean": -155.122,
+      "eval_std": 86.01692342789295,
+      "eval_success": 0.214
+    },
+    {
+      "run": 4,
+      "seed": 58922323,
+      "mean_reward": -82.7733,
+      "std_reward": 76.88818834587013,
+      "eval_mean": -160.804,
+      "eval_std": 81.46531522065081,
+      "eval_success": 0.188
+    },
+    {
+      "run": 5,
+      "seed": 58922324,
+      "mean_reward": -81.4318,
+      "std_reward": 76.07065497785595,
+      "eval_mean": -177.048,
+      "eval_std": 65.29215646614837,
+      "eval_success": 0.11
+    }
+  ],
+  "zero_shot": {
+    "mean_reward": -500.0,
+    "std_reward": 0.0,
+    "success_rate": 0.0,
+    "mean_length": 500.0
+  },
+  "15x15_finetune": [
+    {
+      "run": 1,
+      "seed": 58922320,
+      "mean_reward": -258.06745,
+      "std_reward": 194.41925650639007,
+      "eval_mean": -476.694,
+      "eval_std": 103.81450940981227,
+      "eval_success": 0.002
+    },
+    {
+      "run": 2,
+      "seed": 58922321,
+      "mean_reward": -259.3972,
+      "std_reward": 194.58298212372017,
+      "eval_mean": -448.282,
+      "eval_std": 150.23827234097178,
+      "eval_success": 0.014
+    },
+    {
+      "run": 3,
+      "seed": 58922322,
+      "mean_reward": -259.466,
+      "std_reward": 195.07113201086418,
+      "eval_mean": -468.742,
+      "eval_std": 119.57340605669808,
+      "eval_success": 0.01
+    },
+    {
+      "run": 4,
+      "seed": 58922323,
+      "mean_reward": -261.5784,
+      "std_reward": 194.6580156413807,
+      "eval_mean": -446.118,
+      "eval_std": 153.31133055322428,
+      "eval_success": 0.026
+    },
+    {
+      "run": 5,
+      "seed": 58922324,
+      "mean_reward": -261.89365,
+      "std_reward": 194.98085429004945,
+      "eval_mean": -470.44,
+      "eval_std": 117.03952494777138,
+      "eval_success": 0.018
+    }
+  ],
+  "15x15_scratch": [
+    {
+      "run": 1,
+      "seed": 58922320,
+      "mean_reward": -293.95165,
+      "std_reward": 188.00309415612685,
+      "eval_mean": -463.638,
+      "eval_std": 128.66899764900634,
+      "eval_success": 0.018
+    },
+    {
+      "run": 2,
+      "seed": 58922321,
+      "mean_reward": -294.7181,
+      "std_reward": 187.60707751145745,
+      "eval_mean": -455.15,
+      "eval_std": 140.94079430739703,
+      "eval_success": 0.012
+    },
+    {
+      "run": 3,
+      "seed": 58922322,
+      "mean_reward": -291.37595,
+      "std_reward": 188.06079844453893,
+      "eval_mean": -439.244,
+      "eval_std": 161.52559074029105,
+      "eval_success": 0.018
+    },
+    {
+      "run": 4,
+      "seed": 58922323,
+      "mean_reward": -294.0202,
+      "std_reward": 188.74984527665183,
+      "eval_mean": -478.58,
+      "eval_std": 99.88591292069168,
+      "eval_success": 0.012
+    },
+    {
+      "run": 5,
+      "seed": 58922324,
+      "mean_reward": -291.11165,
+      "std_reward": 187.711901552026,
+      "eval_mean": -452.822,
+      "eval_std": 144.8126179447081,
+      "eval_success": 0.026
+    }
+  ]
+}

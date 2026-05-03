@@ -1,0 +1,11 @@
+N_PASSENGERS    : 2
+N_RUNS          : 30
+EPISODES        : 20000
+EPSILON         : 0.1 (static) / linear decay (decay runs)
+LEARNING_RATE   : 0.1
+DISCOUNT_FACTOR : 0.95
+
+Masked   static mean: -27.0827  std: 0.0875
+Unmasked static mean: -103.4899  std: 0.4691
+Masked   decay  mean: -74.7408  std: 0.3130
+Unmasked decay  mean: -346.2774  std: 1.2919
