@@ -7,12 +7,9 @@ import matplotlib.pyplot as plt
 from scipy.stats import wilcoxon
 
 # ----------------- CONFIG -----------------
-# Both summaries contain all four configs in one file:
-#   masked_static, unmasked_static, masked_decay, unmasked_decay
 QLEARN = "/home/common/ji-bao-lin/taxi/results/q_learning/multi_passenger/checkpoints/summary.json"
 SARSA  = "/home/common/ji-bao-lin/taxi/results/sarsa/multi_passenger/checkpoints/summary.json" 
 
-# Which configs to plot. Comment out any you don't want.
 CONFIGS_TO_RUN = [
     "masked_static",
     "unmasked_static",

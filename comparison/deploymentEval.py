@@ -1,15 +1,7 @@
 """
-deploymentEval.py
-
 Greedy (eps=0) evaluation of trained Q-tables across all 30 seeds.
-Answers: "How well does each algorithm's policy perform when deployed?"
 
-For each config (masked_static, unmasked_static, masked_decay, unmasked_decay)
-and each environment (single-passenger, multi-passenger), evaluates all 30
-Q-tables under masked greedy action selection.
-
-Reports per-config aggregates: mean reward, success rate, episode length
-across 30 seeds, plus a paired Wilcoxon test comparing Q-learning vs SARSA.
+Reports per-config aggregates: mean reward, success rate, episode length across 30 seeds, plus a paired Wilcoxon test comparing Q-learning vs SARSA.
 """
 
 import sys
@@ -21,65 +13,76 @@ from scipy.stats import wilcoxon
 
 sys.path.insert(0, "/home/common/ji-bao-lin/taxi")
 from multi_passenger_taxi import MultiPassengerTaxiEnv
+from multi_passenger_taxi_large import LargeMultiPassengerTaxiEnv
 
 # ----------------- CONFIG -----------------
 ENV = "single"            # "single" or "multi"
-N_EVAL_EPISODES = 500    # episodes per Q-table
+MAP_SIZE = "15x15"        # "5x5" or "15x15"
+N_EVAL_EPISODES = 500
 EVAL_SEED_OFFSET = 999000
-USE_MASK = True          # masked greedy argmax (correct deployment setting)
+USE_MASK = True
+
+# (ENV, MAP_SIZE) maps to the max steps
+MAX_STEPS = {
+    ("single", "5x5"):   200,
+    ("multi",  "5x5"):   400,
+    ("single", "15x15"): 500,
+    ("multi",  "15x15"): 1000,
+}
 
 QTABLE_PATHS = {
-    # ----- single-passenger -----
-    ("single", "masked_static"): {
+    # ----- 5x5, single-passenger -----
+    ("single", "5x5", "masked_static"): {
         "qlearn": "/home/common/ji-bao-lin/taxi/results/q_learning/q_tables/q_learning_masked_static_qtables.npy",
         "sarsa":  "/home/common/ji-bao-lin/taxi/results/sarsa/q_tables/sarsa_masked_static_qtables.npy",
     },
-    ("single", "unmasked_static"): {
+    ("single", "5x5", "unmasked_static"): {
         "qlearn": "/home/common/ji-bao-lin/taxi/results/q_learning/q_tables/q_learning_unmasked_static_qtables.npy",
         "sarsa":  "/home/common/ji-bao-lin/taxi/results/sarsa/q_tables/sarsa_unmasked_static_qtables.npy",
     },
-    ("single", "masked_decay"): {
+    ("single", "5x5", "masked_decay"): {
         "qlearn": "/home/common/ji-bao-lin/taxi/results/q_learning/q_tables/q_learning_masked_decay_qtables.npy",
         "sarsa":  "/home/common/ji-bao-lin/taxi/results/sarsa/q_tables/sarsa_masked_decay_qtables.npy",
     },
-    ("single", "unmasked_decay"): {
+    ("single", "5x5", "unmasked_decay"): {
         "qlearn": "/home/common/ji-bao-lin/taxi/results/q_learning/q_tables/q_learning_unmasked_decay_qtables.npy",
         "sarsa":  "/home/common/ji-bao-lin/taxi/results/sarsa/q_tables/sarsa_unmasked_decay_qtables.npy",
     },
-    # ----- 15x15 - single-passenger -----
-    # ("single", "masked_static"): {
-    #     "qlearn": "/home/common/ji-bao-lin/taxi/results/15by15map/q_learning/q_tables/masked_static_qtables.npy",
-    #     "sarsa":  "/home/common/ji-bao-lin/taxi/results/15by15map/sarsa/q_tables/sarsa_masked_static_qtables.npy",
-    # },
-    # ("single", "unmasked_static"): {
-    #     "qlearn": "/home/common/ji-bao-lin/taxi/results/15by15map/q_learning/q_tables/unmasked_static_qtables.npy",
-    #     "sarsa":  "/home/common/ji-bao-lin/taxi/results/15by15map/sarsa/q_tables/sarsa_unmasked_static_qtables.npy",
-    # },
-    # ("single", "masked_decay"): {
-    #     "qlearn": "/home/common/ji-bao-lin/taxi/results/15by15map/q_learning/q_tables/masked_decay_qtables.npy",
-    #     "sarsa":  "/home/common/ji-bao-lin/taxi/results/15by15map/sarsa/q_tables/sarsa_masked_decay_qtables.npy",
-    # },
-    # ("single", "unmasked_decay"): {
-    #     "qlearn": "/home/common/ji-bao-lin/taxi/results/15by15map/q_learning/q_tables/unmasked_decay_qtables.npy",
-    #     "sarsa":  "/home/common/ji-bao-lin/taxi/results/15by15map/sarsa/q_tables/sarsa_unmasked_decay_qtables.npy",
-    # },
-    # ----- multi-passenger -----
-    ("multi", "masked_static"): {
+    # ----- 15x15, single-passenger -----
+    ("single", "15x15", "masked_static"): {
+        "qlearn": "/home/common/ji-bao-lin/taxi/results/15by15map/q_learning/q_tables/masked_static_qtables.npy",
+        "sarsa":  "/home/common/ji-bao-lin/taxi/results/15by15map/sarsa/q_tables/sarsa_masked_static_qtables.npy",
+    },
+    ("single", "15x15", "unmasked_static"): {
+        "qlearn": "/home/common/ji-bao-lin/taxi/results/15by15map/q_learning/q_tables/unmasked_static_qtables.npy",
+        "sarsa":  "/home/common/ji-bao-lin/taxi/results/15by15map/sarsa/q_tables/sarsa_unmasked_static_qtables.npy",
+    },
+    ("single", "15x15", "masked_decay"): {
+        "qlearn": "/home/common/ji-bao-lin/taxi/results/15by15map/q_learning/q_tables/masked_decay_qtables.npy",
+        "sarsa":  "/home/common/ji-bao-lin/taxi/results/15by15map/sarsa/q_tables/sarsa_masked_decay_qtables.npy",
+    },
+    ("single", "15x15", "unmasked_decay"): {
+        "qlearn": "/home/common/ji-bao-lin/taxi/results/15by15map/q_learning/q_tables/unmasked_decay_qtables.npy",
+        "sarsa":  "/home/common/ji-bao-lin/taxi/results/15by15map/sarsa/q_tables/sarsa_unmasked_decay_qtables.npy",
+    },
+    # ----- 5x5, multi-passenger -----
+    ("multi", "5x5", "masked_static"): {
         "qlearn": "/home/common/ji-bao-lin/taxi/results/q_learning/multi_passenger/q_tables/multi_masked_static_qtables.npy",
         "sarsa":  "/home/common/ji-bao-lin/taxi/results/sarsa/multi_passenger/q_tables/multi_masked_static_qtables.npy",
     },
-    ("multi", "unmasked_static"): {
+    ("multi", "5x5", "unmasked_static"): {
         "qlearn": "/home/common/ji-bao-lin/taxi/results/q_learning/multi_passenger/q_tables/multi_unmasked_static_qtables.npy",
         "sarsa":  "/home/common/ji-bao-lin/taxi/results/sarsa/multi_passenger/q_tables/multi_unmasked_static_qtables.npy",
     },
-    ("multi", "masked_decay"): {
+    ("multi", "5x5", "masked_decay"): {
         "qlearn": "/home/common/ji-bao-lin/taxi/results/q_learning/multi_passenger/q_tables/multi_masked_decay_qtables.npy",
         "sarsa":  "/home/common/ji-bao-lin/taxi/results/sarsa/multi_passenger/q_tables/multi_masked_decay_qtables.npy",
     },
-    ("multi", "unmasked_decay"): {
+    ("multi", "5x5", "unmasked_decay"): {
         "qlearn": "/home/common/ji-bao-lin/taxi/results/q_learning/multi_passenger/q_tables/multi_unmasked_decay_qtables.npy",
         "sarsa":  "/home/common/ji-bao-lin/taxi/results/sarsa/multi_passenger/q_tables/multi_unmasked_decay_qtables.npy",
     },
+    # ----- 15x15, multi-passenger (add when available) -----
 }
 
 CONFIGS_TO_RUN = [
@@ -95,10 +98,12 @@ OUT_DIR.mkdir(parents=True, exist_ok=True)
 
 
 def make_env():
-    if ENV == "multi":
-        return MultiPassengerTaxiEnv(n_passengers=2, max_steps=200)
+    n_pass = 2 if ENV == "multi" else 1
+    max_steps = MAX_STEPS[(ENV, MAP_SIZE)]
+    if MAP_SIZE == "15x15":
+        return LargeMultiPassengerTaxiEnv(n_passengers=n_pass, max_steps=max_steps)
     else:
-        return MultiPassengerTaxiEnv(n_passengers=1, max_steps=200)
+        return MultiPassengerTaxiEnv(n_passengers=n_pass, max_steps=max_steps)
 
 
 def evaluate_q_table(q_table, n_episodes, base_seed):
@@ -159,12 +164,17 @@ def summarize(name, rewards, lengths, successes):
 
 def run_config(config_key):
     print(f"\n{'=' * 70}")
-    print(f"=== {ENV}-passenger, config: {config_key} ===")
+    print(f"=== {MAP_SIZE} {ENV}-passenger, config: {config_key} ===")
     print(f"{'=' * 70}\n")
 
-    paths = QTABLE_PATHS[(ENV, config_key)]
+    key = (ENV, MAP_SIZE, config_key)
+    if key not in QTABLE_PATHS:
+        print(f"  No Q-table paths registered for {key}, skipping.")
+        return None
+
+    paths = QTABLE_PATHS[key]
     if not Path(paths["qlearn"]).exists() or not Path(paths["sarsa"]).exists():
-        print(f"  Missing Q-table file(s) for {config_key}, skipping.")
+        print(f"  Missing Q-table file(s) for {key}, skipping.")
         return None
 
     ql_qtables = np.load(paths["qlearn"])
@@ -188,21 +198,23 @@ def run_config(config_key):
               f"success {s['success_mean']:.1%} ± {s['success_std']:.1%}")
 
     diff = ql_r - sa_r
+    p_value = None
     try:
-        stat, p = wilcoxon(ql_r, sa_r)
+        stat, p_value = wilcoxon(ql_r, sa_r)
         print(f"\n  Paired Wilcoxon (reward, Q − SARSA): "
-              f"mean diff {diff.mean():+.3f}, stat={stat:.2f}, p={p:.4g}")
+              f"mean diff {diff.mean():+.3f}, stat={stat:.2f}, p={p_value:.4g}")
     except ValueError as e:
         print(f"\n  Wilcoxon failed: {e}")
 
     return {
         "config":     config_key,
         "env":        ENV,
+        "map_size":   MAP_SIZE,
         "qlearn":     ql_summary,
         "sarsa":      sa_summary,
         "ql_per_seed": {"reward": ql_r.tolist(), "length": ql_l.tolist(), "success": ql_s.tolist()},
         "sa_per_seed": {"reward": sa_r.tolist(), "length": sa_l.tolist(), "success": sa_s.tolist()},
-        "wilcoxon_p": float(p) if 'p' in locals() else None,
+        "wilcoxon_p": float(p_value) if p_value is not None else None,
         "mean_diff":  float(diff.mean()),
     }
 
@@ -214,7 +226,7 @@ def main():
         if result is not None:
             all_results[cfg] = result
 
-    out_path = OUT_DIR / f"deployment_eval_{ENV}.json"
+    out_path = OUT_DIR / f"deployment_eval_{MAP_SIZE}_{ENV}.json"
     with open(out_path, "w") as f:
         json.dump(all_results, f, indent=2)
     print(f"\n\nSaved per-seed results and aggregates to {out_path}")

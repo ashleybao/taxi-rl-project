@@ -1,13 +1,3 @@
-"""
-For each state s, the policy picks argmax_a Q(s,a). This script asks:
-  - In how many states do the two algorithms pick the same action?
-  - Where do they disagree, and what kind of disagreements are they?
-  - Is the agreement consistent across the 30 seeds?
-
-Inputs: two .npy files of shape (n_runs, n_states, n_actions) — typically
-        multi_masked_qtables.npy for Q-learning and SARSA.
-"""
-
 import numpy as np
 import matplotlib.pyplot as plt
 from pathlib import Path
@@ -19,13 +9,9 @@ SARSA_PATH  = "/home/common/ji-bao-lin/taxi/results/sarsa/multi/multi_masked_qta
 
 OUT_PLOT = "policy_agreement.png"
 
-# Action indices for the multi-passenger taxi env. Adjust if your env uses
-# a different mapping. Standard Taxi-v3 mapping:
-#   0=South, 1=North, 2=East, 3=West, 4=Pickup, 5=Dropoff
 ACTION_NAMES = ["South", "North", "East", "West", "Pickup", "Dropoff"]
 MOVEMENT_ACTIONS = {0, 1, 2, 3}
 INTERACTION_ACTIONS = {4, 5}
-# ------------------------------------------------------------------------
 
 
 def load_qtables(path):
@@ -49,8 +35,6 @@ def per_pair_agreement(q_tables_a, q_tables_b):
 
 
 def aggregate_disagreement_matrix(q_tables_a, q_tables_b):
-    """6x6 matrix counting disagreements: M[i,j] = # of (state, run) pairs where
-       algo A picked i and algo B picked j. Diagonal = agreements."""
     n_actions = q_tables_a.shape[2]
     M = np.zeros((n_actions, n_actions), dtype=np.int64)
     for run in range(q_tables_a.shape[0]):

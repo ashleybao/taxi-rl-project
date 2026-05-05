@@ -9,7 +9,6 @@ from scipy.stats import wilcoxon
 # ----------------- CONFIG -----------------
 ENV = "single"   # "single" or "multi"
 
-# Both summaries contain all four configs in one file
 QLEARN_PATHS = {
     # "single": "/home/common/ji-bao-lin/taxi/results/q_learning/checkpoints/summary.json",
     "single": "/home/common/ji-bao-lin/taxi/results/15by15map/q_learning/checkpoints/summary.json",
@@ -22,7 +21,6 @@ SARSA_PATHS = {
     "multi":  "/home/common/ji-bao-lin/taxi/results/sarsa/multi_passenger/checkpoints/summary.json",
 }
 
-# Order: rows = decay (static/decay), columns = mask (masked/unmasked)
 CONFIGS_GRID = [
     ["masked_static", "unmasked_static"],
     ["masked_decay",  "unmasked_decay"],
@@ -130,7 +128,6 @@ def main():
     if not Path(s_path).exists():
         sys.exit(f"SARSA summary not found: {s_path}")
 
-    # Load all four cells
     data_grid = []
     summary_rows = []
     print(f"=== {ENV}-passenger ===\n")

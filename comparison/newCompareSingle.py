@@ -7,8 +7,6 @@ import matplotlib.pyplot as plt
 from scipy.stats import wilcoxon
 
 # ----------------- CONFIG -----------------
-# Both summaries contain all four configs in one file:
-#   masked_static, unmasked_static, masked_decay, unmasked_decay
 # QLEARN = "/home/common/ji-bao-lin/taxi/results/q_learning/checkpoints/summary.json"
 # SARSA  = "/home/common/ji-bao-lin/taxi/results/sarsa/checkpoints/summary.json"  # <-- update if path differs
 

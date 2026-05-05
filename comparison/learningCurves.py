@@ -9,7 +9,7 @@ SIZE = "15by15"  # "5by5" or "15by15"
 
 REWARD_DIRS = {
     "single": {
-        # "qlearn": "/home/common/ji-bao-lin/taxi/results/q_learning/rewards",
+        # "qlearn": "/home/common/ji-bao-lin/taxi/results/q_learning/rewards", 
         # "sarsa":  "/home/common/ji-bao-lin/taxi/results/sarsa/rewards",
         "qlearn": "/home/common/ji-bao-lin/taxi/results/15by15map/q_learning/rewards",
         "sarsa":  "/home/common/ji-bao-lin/taxi/results/15by15map/sarsa/rewards",

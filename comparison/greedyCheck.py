@@ -1,15 +1,5 @@
 """
-greedyCheck.py
-
-Compute masked-argmax policy agreement and Q-value spread between Q-learning
-and SARSA, across all 30 seeds.
-
-For each (Q-learning seed i, SARSA seed i) pair (paired by seed):
-  1. Roll out Q-learning's greedy policy to collect reachable states
-  2. For each visited state, compute masked-argmax under both Q-tables
-  3. Report fraction of agreeing actions, and mean |Q_QL - Q_SARSA| at chosen action
-
-Aggregates across all 30 pairs.
+Compute masked-argmax policy agreement and Q-value spread between Q-learning and SARSA, across all 30 seeds.
 """
 
 import numpy as np
@@ -21,11 +11,11 @@ from multi_passenger_taxi import MultiPassengerTaxiEnv
 
 # ----------------- CONFIG -----------------
 ENV = "single"           # "single" or "multi"
-DECAY = True            # True = decay Q-tables, False = static
-N_ROLLOUT_EPISODES = 200  # episodes per seed pair to collect reachable states
-EVAL_SEED_OFFSET = 999000  # base seed for eval rollouts (kept distinct from training seeds)
+DECAY = True            
+N_ROLLOUT_EPISODES = 200 
+EVAL_SEED_OFFSET = 999000 
 
-# Paths to the (n_seeds, n_states, n_actions) Q-table arrays
+
 QTABLE_PATHS = {
     ("single", False): {
         # "qlearn": "/home/common/ji-bao-lin/taxi/results/q_learning/q_tables/q_learning_masked_static_qtables.npy",

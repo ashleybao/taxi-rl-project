@@ -3,9 +3,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 from pathlib import Path
 
-# Paste your per-seed data manually as lists, OR re-run greedyCheck saving them to JSON
-# For cleaner code, modify greedyCheck.py to save these lists to JSON
-
 DATA = {
     "single_static_5x5": {
         "agreement": [88.6, 89.2, 91.0, 88.3, 90.2, 88.6, 88.8, 89.1, 86.7, 91.8,
