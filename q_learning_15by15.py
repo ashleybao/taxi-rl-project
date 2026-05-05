@@ -11,10 +11,12 @@ BASE_RANDOM_SEED = 58922320
 output_dir      = Path("results/15by15map/q_learning")
 checkpoints_dir = output_dir / "checkpoints"
 qtables_dir     = output_dir / "q_tables"
+rewards_dir     = output_dir / "rewards"
 
 output_dir.mkdir(parents=True, exist_ok=True)
 checkpoints_dir.mkdir(parents=True, exist_ok=True)
 qtables_dir.mkdir(parents=True, exist_ok=True)
+rewards_dir.mkdir(parents=True, exist_ok=True)
 
 
 # =========================
@@ -130,8 +132,8 @@ def train_q_learning(
 # EXPERIMENT SETUP
 # =========================
 
-n_runs          = 12
-episodes        = 10000   # larger grid needs more episodes
+n_runs          = 30          # 30 runs for statistical significance tests
+episodes        = 10000       # larger grid needs more episodes
 learning_rate   = 0.1
 discount_factor = 0.95
 
@@ -210,9 +212,9 @@ unmasked_decay_curve  = mean_curve(unmasked_decay)
 # =========================
 
 plt.figure(figsize=(12, 7))
-plt.plot(smooth(masked_static_curve),   label="Masked (Static ε)",   alpha=0.9)
-plt.plot(smooth(unmasked_static_curve), label="Unmasked (Static ε)", alpha=0.9)
-plt.plot(smooth(masked_decay_curve),    label="Masked (Decaying ε)", alpha=0.9)
+plt.plot(smooth(masked_static_curve),   label="Masked (Static ε)",     alpha=0.9)
+plt.plot(smooth(unmasked_static_curve), label="Unmasked (Static ε)",   alpha=0.9)
+plt.plot(smooth(masked_decay_curve),    label="Masked (Decaying ε)",   alpha=0.9)
 plt.plot(smooth(unmasked_decay_curve),  label="Unmasked (Decaying ε)", alpha=0.9)
 plt.xlabel("Episode")
 plt.ylabel("Smoothed Reward")
@@ -252,7 +254,7 @@ plt.show()
 
 
 # =========================
-# SAVE RESULTS
+# SAVE RESULTS — summary.json
 # =========================
 
 json.dump(
@@ -278,6 +280,34 @@ json.dump(
     indent=2,
 )
 
+
+# =========================
+# SAVE — per-seed reward arrays (shape: n_runs × episodes)
+# for statistical significance testing
+# =========================
+
+np.save(
+    rewards_dir / "masked_static_rewards.npy",
+    np.array([r["episode_rewards"] for r in masked_static]),
+)
+np.save(
+    rewards_dir / "unmasked_static_rewards.npy",
+    np.array([r["episode_rewards"] for r in unmasked_static]),
+)
+np.save(
+    rewards_dir / "masked_decay_rewards.npy",
+    np.array([r["episode_rewards"] for r in masked_decay]),
+)
+np.save(
+    rewards_dir / "unmasked_decay_rewards.npy",
+    np.array([r["episode_rewards"] for r in unmasked_decay]),
+)
+
+
+# =========================
+# SAVE — all Q-tables (shape: n_runs × n_states × n_actions)
+# =========================
+
 np.save(qtables_dir / "masked_static_qtables.npy",   [r["q_table"] for r in masked_static])
 np.save(qtables_dir / "unmasked_static_qtables.npy", [r["q_table"] for r in unmasked_static])
 np.save(qtables_dir / "masked_decay_qtables.npy",    [r["q_table"] for r in masked_decay])
@@ -285,7 +315,7 @@ np.save(qtables_dir / "unmasked_decay_qtables.npy",  [r["q_table"] for r in unma
 
 
 # =========================
-# BEST RUNS
+# SAVE — best runs (include episode_rewards for significance testing)
 # =========================
 
 best_masked         = max(masked_static,   key=lambda r: r["mean_reward"])
@@ -293,20 +323,52 @@ best_unmasked       = max(unmasked_static, key=lambda r: r["mean_reward"])
 best_masked_decay   = max(masked_decay,    key=lambda r: r["mean_reward"])
 best_unmasked_decay = max(unmasked_decay,  key=lambda r: r["mean_reward"])
 
-np.savez(checkpoints_dir / "best_masked_static.npz",
-         q_table=best_masked["q_table"],
-         mean_reward=best_masked["mean_reward"])
+np.savez(
+    checkpoints_dir / "best_masked_static.npz",
+    q_table         = best_masked["q_table"],
+    episode_rewards = np.array(best_masked["episode_rewards"]),
+    mean_reward     = best_masked["mean_reward"],
+    std_reward      = best_masked["std_reward"],
+)
 
-np.savez(checkpoints_dir / "best_unmasked_static.npz",
-         q_table=best_unmasked["q_table"],
-         mean_reward=best_unmasked["mean_reward"])
+np.savez(
+    checkpoints_dir / "best_unmasked_static.npz",
+    q_table         = best_unmasked["q_table"],
+    episode_rewards = np.array(best_unmasked["episode_rewards"]),
+    mean_reward     = best_unmasked["mean_reward"],
+    std_reward      = best_unmasked["std_reward"],
+)
 
-np.savez(checkpoints_dir / "best_masked_decay.npz",
-         q_table=best_masked_decay["q_table"],
-         mean_reward=best_masked_decay["mean_reward"])
+np.savez(
+    checkpoints_dir / "best_masked_decay.npz",
+    q_table         = best_masked_decay["q_table"],
+    episode_rewards = np.array(best_masked_decay["episode_rewards"]),
+    mean_reward     = best_masked_decay["mean_reward"],
+    std_reward      = best_masked_decay["std_reward"],
+)
 
-np.savez(checkpoints_dir / "best_unmasked_decay.npz",
-         q_table=best_unmasked_decay["q_table"],
-         mean_reward=best_unmasked_decay["mean_reward"])
+np.savez(
+    checkpoints_dir / "best_unmasked_decay.npz",
+    q_table         = best_unmasked_decay["q_table"],
+    episode_rewards = np.array(best_unmasked_decay["episode_rewards"]),
+    mean_reward     = best_unmasked_decay["mean_reward"],
+    std_reward      = best_unmasked_decay["std_reward"],
+)
 
-print("\nDone. Files written to", output_dir)
+
+print("\nDone. Files written:")
+print(f"  {output_dir}/q_learning_epsilon_comparison.png")
+print(f"  {output_dir}/q_learning_epsilon_schedule_effect.png")
+print(f"  {checkpoints_dir}/summary.json")
+print(f"  {checkpoints_dir}/best_masked_static.npz")
+print(f"  {checkpoints_dir}/best_unmasked_static.npz")
+print(f"  {checkpoints_dir}/best_masked_decay.npz")
+print(f"  {checkpoints_dir}/best_unmasked_decay.npz")
+print(f"  {qtables_dir}/masked_static_qtables.npy")
+print(f"  {qtables_dir}/unmasked_static_qtables.npy")
+print(f"  {qtables_dir}/masked_decay_qtables.npy")
+print(f"  {qtables_dir}/unmasked_decay_qtables.npy")
+print(f"  {rewards_dir}/masked_static_rewards.npy       # shape: ({n_runs}, {episodes})")
+print(f"  {rewards_dir}/unmasked_static_rewards.npy     # shape: ({n_runs}, {episodes})")
+print(f"  {rewards_dir}/masked_decay_rewards.npy        # shape: ({n_runs}, {episodes})")
+print(f"  {rewards_dir}/unmasked_decay_rewards.npy      # shape: ({n_runs}, {episodes})")

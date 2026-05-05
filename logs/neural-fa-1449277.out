@@ -1,0 +1,207 @@
+Feature dim D=13  hidden=64  (same for both envs — weight transfer is direct)
+
+=== PHASE 1: Neural FA on Taxi-v3 (5×5) ===
+─── Run 1/5  (seed 58922320) ───
+  ep   1000 | mean reward (last 1000): -185.1  ε=0.900
+  ep   2000 | mean reward (last 1000): -189.8  ε=0.800
+  ep   3000 | mean reward (last 1000): -192.1  ε=0.700
+  ep   4000 | mean reward (last 1000): -194.3  ε=0.600
+  ep   5000 | mean reward (last 1000): -197.4  ε=0.500
+  ep   6000 | mean reward (last 1000): -197.9  ε=0.400
+  ep   7000 | mean reward (last 1000): -199.6  ε=0.300
+  ep   8000 | mean reward (last 1000): -199.9  ε=0.200
+  ep   9000 | mean reward (last 1000): -200.0  ε=0.100
+  ep  10000 | mean reward (last 1000): -200.0  ε=0.050
+  EVAL → mean: -200.0 ± 0.0  success: 0.0%  len: 200
+
+─── Run 2/5  (seed 58922321) ───
+  ep   1000 | mean reward (last 1000): -186.0  ε=0.900
+  ep   2000 | mean reward (last 1000): -189.0  ε=0.800
+  ep   3000 | mean reward (last 1000): -192.5  ε=0.700
+  ep   4000 | mean reward (last 1000): -194.9  ε=0.600
+  ep   5000 | mean reward (last 1000): -197.5  ε=0.500
+  ep   6000 | mean reward (last 1000): -198.4  ε=0.400
+  ep   7000 | mean reward (last 1000): -200.0  ε=0.300
+  ep   8000 | mean reward (last 1000): -200.0  ε=0.200
+  ep   9000 | mean reward (last 1000): -200.0  ε=0.100
+  ep  10000 | mean reward (last 1000): -200.0  ε=0.050
+  EVAL → mean: -200.0 ± 0.0  success: 0.0%  len: 200
+
+─── Run 3/5  (seed 58922322) ───
+  ep   1000 | mean reward (last 1000): -187.8  ε=0.900
+  ep   2000 | mean reward (last 1000): -190.1  ε=0.800
+  ep   3000 | mean reward (last 1000): -191.2  ε=0.700
+  ep   4000 | mean reward (last 1000): -195.1  ε=0.600
+  ep   5000 | mean reward (last 1000): -196.9  ε=0.500
+  ep   6000 | mean reward (last 1000): -197.8  ε=0.400
+  ep   7000 | mean reward (last 1000): -199.7  ε=0.300
+  ep   8000 | mean reward (last 1000): -199.8  ε=0.200
+  ep   9000 | mean reward (last 1000): -200.0  ε=0.100
+  ep  10000 | mean reward (last 1000): -200.0  ε=0.050
+  EVAL → mean: -200.0 ± 0.0  success: 0.0%  len: 200
+
+─── Run 4/5  (seed 58922323) ───
+  ep   1000 | mean reward (last 1000): -188.3  ε=0.900
+  ep   2000 | mean reward (last 1000): -190.4  ε=0.800
+  ep   3000 | mean reward (last 1000): -193.4  ε=0.700
+  ep   4000 | mean reward (last 1000): -197.1  ε=0.600
+  ep   5000 | mean reward (last 1000): -198.6  ε=0.500
+  ep   6000 | mean reward (last 1000): -199.3  ε=0.400
+  ep   7000 | mean reward (last 1000): -199.6  ε=0.300
+  ep   8000 | mean reward (last 1000): -200.0  ε=0.200
+  ep   9000 | mean reward (last 1000): -199.9  ε=0.100
+  ep  10000 | mean reward (last 1000): -200.0  ε=0.050
+  EVAL → mean: -200.0 ± 0.0  success: 0.0%  len: 200
+
+─── Run 5/5  (seed 58922324) ───
+  ep   1000 | mean reward (last 1000): -185.7  ε=0.900
+  ep   2000 | mean reward (last 1000): -191.0  ε=0.800
+  ep   3000 | mean reward (last 1000): -192.2  ε=0.700
+  ep   4000 | mean reward (last 1000): -193.9  ε=0.600
+  ep   5000 | mean reward (last 1000): -197.7  ε=0.500
+  ep   6000 | mean reward (last 1000): -198.3  ε=0.400
+  ep   7000 | mean reward (last 1000): -199.8  ε=0.300
+  ep   8000 | mean reward (last 1000): -200.0  ε=0.200
+  ep   9000 | mean reward (last 1000): -200.0  ε=0.100
+  ep  10000 | mean reward (last 1000): -200.0  ε=0.050
+  EVAL → mean: -200.0 ± 0.0  success: 0.0%  len: 200
+
+
+=== PHASE 2: zero-shot transfer check ===
+Taxi-v3 D=13  |  15×15 D=13
+Dims match — copying Phase 1 weights directly into 15×15 network.
+Zero-shot → mean: -500.0 ± 0.0  success: 0.0%
+
+=== PHASE 3: fine-tune vs scratch on 15×15 (20000 eps) ===
+
+─── Run 1/5  (seed 58922320) ───
+  ep   2000 | mean reward (last 2000): -499.5  ε=0.264
+  ep   4000 | mean reward (last 2000): -499.8  ε=0.229
+  ep   6000 | mean reward (last 2000): -500.0  ε=0.193
+  ep   8000 | mean reward (last 2000): -500.0  ε=0.157
+  ep  10000 | mean reward (last 2000): -499.8  ε=0.121
+  ep  12000 | mean reward (last 2000): -500.0  ε=0.086
+  ep  14000 | mean reward (last 2000): -500.0  ε=0.050
+  ep  16000 | mean reward (last 2000): -500.0  ε=0.050
+  ep  18000 | mean reward (last 2000): -500.0  ε=0.050
+  ep  20000 | mean reward (last 2000): -500.0  ε=0.050
+  Fine-tune EVAL → mean: -500.0  success: 0.0%
+  ep   2000 | mean reward (last 2000): -491.3  ε=0.881
+  ep   4000 | mean reward (last 2000): -496.2  ε=0.763
+  ep   6000 | mean reward (last 2000): -498.3  ε=0.644
+  ep   8000 | mean reward (last 2000): -499.0  ε=0.525
+  ep  10000 | mean reward (last 2000): -499.5  ε=0.406
+  ep  12000 | mean reward (last 2000): -499.5  ε=0.288
+  ep  14000 | mean reward (last 2000): -500.0  ε=0.169
+  ep  16000 | mean reward (last 2000): -500.0  ε=0.050
+  ep  18000 | mean reward (last 2000): -500.0  ε=0.050
+  ep  20000 | mean reward (last 2000): -500.0  ε=0.050
+  Scratch   EVAL → mean: -500.0  success: 0.0%
+
+─── Run 2/5  (seed 58922321) ───
+  ep   2000 | mean reward (last 2000): -499.8  ε=0.264
+  ep   4000 | mean reward (last 2000): -499.8  ε=0.229
+  ep   6000 | mean reward (last 2000): -500.0  ε=0.193
+  ep   8000 | mean reward (last 2000): -500.0  ε=0.157
+  ep  10000 | mean reward (last 2000): -500.0  ε=0.121
+  ep  12000 | mean reward (last 2000): -500.0  ε=0.086
+  ep  14000 | mean reward (last 2000): -500.0  ε=0.050
+  ep  16000 | mean reward (last 2000): -500.0  ε=0.050
+  ep  18000 | mean reward (last 2000): -500.0  ε=0.050
+  ep  20000 | mean reward (last 2000): -500.0  ε=0.050
+  Fine-tune EVAL → mean: -500.0  success: 0.0%
+  ep   2000 | mean reward (last 2000): -493.8  ε=0.881
+  ep   4000 | mean reward (last 2000): -497.7  ε=0.763
+  ep   6000 | mean reward (last 2000): -499.3  ε=0.644
+  ep   8000 | mean reward (last 2000): -499.8  ε=0.525
+  ep  10000 | mean reward (last 2000): -500.0  ε=0.406
+  ep  12000 | mean reward (last 2000): -500.0  ε=0.288
+  ep  14000 | mean reward (last 2000): -500.0  ε=0.169
+  ep  16000 | mean reward (last 2000): -500.0  ε=0.050
+  ep  18000 | mean reward (last 2000): -500.0  ε=0.050
+  ep  20000 | mean reward (last 2000): -500.0  ε=0.050
+  Scratch   EVAL → mean: -500.0  success: 0.0%
+
+─── Run 3/5  (seed 58922322) ───
+  ep   2000 | mean reward (last 2000): -500.0  ε=0.264
+  ep   4000 | mean reward (last 2000): -499.8  ε=0.229
+  ep   6000 | mean reward (last 2000): -500.0  ε=0.193
+  ep   8000 | mean reward (last 2000): -499.8  ε=0.157
+  ep  10000 | mean reward (last 2000): -500.0  ε=0.121
+  ep  12000 | mean reward (last 2000): -500.0  ε=0.086
+  ep  14000 | mean reward (last 2000): -500.0  ε=0.050
+  ep  16000 | mean reward (last 2000): -500.0  ε=0.050
+  ep  18000 | mean reward (last 2000): -500.0  ε=0.050
+  ep  20000 | mean reward (last 2000): -500.0  ε=0.050
+  Fine-tune EVAL → mean: -500.0  success: 0.0%
+  ep   2000 | mean reward (last 2000): -494.2  ε=0.881
+  ep   4000 | mean reward (last 2000): -496.7  ε=0.763
+  ep   6000 | mean reward (last 2000): -499.1  ε=0.644
+  ep   8000 | mean reward (last 2000): -499.1  ε=0.525
+  ep  10000 | mean reward (last 2000): -500.0  ε=0.406
+  ep  12000 | mean reward (last 2000): -499.3  ε=0.288
+  ep  14000 | mean reward (last 2000): -500.0  ε=0.169
+  ep  16000 | mean reward (last 2000): -499.8  ε=0.050
+  ep  18000 | mean reward (last 2000): -500.0  ε=0.050
+  ep  20000 | mean reward (last 2000): -500.0  ε=0.050
+  Scratch   EVAL → mean: -500.0  success: 0.0%
+
+─── Run 4/5  (seed 58922323) ───
+  ep   2000 | mean reward (last 2000): -499.8  ε=0.264
+  ep   4000 | mean reward (last 2000): -499.5  ε=0.229
+  ep   6000 | mean reward (last 2000): -500.0  ε=0.193
+  ep   8000 | mean reward (last 2000): -499.8  ε=0.157
+  ep  10000 | mean reward (last 2000): -500.0  ε=0.121
+  ep  12000 | mean reward (last 2000): -500.0  ε=0.086
+  ep  14000 | mean reward (last 2000): -500.0  ε=0.050
+  ep  16000 | mean reward (last 2000): -499.8  ε=0.050
+  ep  18000 | mean reward (last 2000): -500.0  ε=0.050
+  ep  20000 | mean reward (last 2000): -500.0  ε=0.050
+  Fine-tune EVAL → mean: -500.0  success: 0.0%
+  ep   2000 | mean reward (last 2000): -493.2  ε=0.881
+  ep   4000 | mean reward (last 2000): -496.9  ε=0.763
+  ep   6000 | mean reward (last 2000): -499.3  ε=0.644
+  ep   8000 | mean reward (last 2000): -499.8  ε=0.525
+  ep  10000 | mean reward (last 2000): -500.0  ε=0.406
+  ep  12000 | mean reward (last 2000): -500.0  ε=0.288
+  ep  14000 | mean reward (last 2000): -500.0  ε=0.169
+  ep  16000 | mean reward (last 2000): -500.0  ε=0.050
+  ep  18000 | mean reward (last 2000): -500.0  ε=0.050
+  ep  20000 | mean reward (last 2000): -500.0  ε=0.050
+  Scratch   EVAL → mean: -500.0  success: 0.0%
+
+─── Run 5/5  (seed 58922324) ───
+  ep   2000 | mean reward (last 2000): -500.0  ε=0.264
+  ep   4000 | mean reward (last 2000): -499.5  ε=0.229
+  ep   6000 | mean reward (last 2000): -500.0  ε=0.193
+  ep   8000 | mean reward (last 2000): -500.0  ε=0.157
+  ep  10000 | mean reward (last 2000): -500.0  ε=0.121
+  ep  12000 | mean reward (last 2000): -500.0  ε=0.086
+  ep  14000 | mean reward (last 2000): -499.8  ε=0.050
+  ep  16000 | mean reward (last 2000): -500.0  ε=0.050
+  ep  18000 | mean reward (last 2000): -500.0  ε=0.050
+  ep  20000 | mean reward (last 2000): -500.0  ε=0.050
+  Fine-tune EVAL → mean: -500.0  success: 0.0%
+  ep   2000 | mean reward (last 2000): -494.1  ε=0.881
+  ep   4000 | mean reward (last 2000): -497.4  ε=0.763
+  ep   6000 | mean reward (last 2000): -497.4  ε=0.644
+  ep   8000 | mean reward (last 2000): -499.6  ε=0.525
+  ep  10000 | mean reward (last 2000): -500.0  ε=0.406
+  ep  12000 | mean reward (last 2000): -499.5  ε=0.288
+  ep  14000 | mean reward (last 2000): -500.0  ε=0.169
+  ep  16000 | mean reward (last 2000): -500.0  ε=0.050
+  ep  18000 | mean reward (last 2000): -500.0  ε=0.050
+  ep  20000 | mean reward (last 2000): -500.0  ε=0.050
+  Scratch   EVAL → mean: -500.0  success: 0.0%
+
+
+Done. Files written to results/neural_fa
+  Plots      : training_taxiv3.png, weights_taxiv3.png
+               training_15x15_finetune.png, training_15x15_scratch.png
+               weights_15x15_finetuned.png, transfer_comparison.png
+  Per-run    : models/taxiv3_run{1-5}.pt
+               models/15x15_finetune_run{1-5}.pt
+               models/15x15_scratch_run{1-5}.pt
+  Best runs  : best_taxiv3.pt, best_15x15_finetune.pt, best_15x15_scratch.pt
+  Summary    : summary.json
+

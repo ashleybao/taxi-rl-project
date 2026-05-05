@@ -1,33 +1,12 @@
-#!/bin/bash
-#SBATCH --job-name=bigger_taxi
-#SBATCH --output=logs/bigger_taxi_%j.out
-#SBATCH --error=logs/bigger_taxi_%j.err
+#! /bin/sh
+#SBATCH --job-name=q-learning-15by15
+#SBATCH --partition cpu-q
+#SBATCH --cpus-per-task=5
+#SBATCH --mem=20G
+#SBATCH --output ./logs/q-learning-15by15-%j.out
+#SBATCH --error ./logs/q-learning-15by15-%j.err
 
-#SBATCH --time=02:00:00
-#SBATCH --partition=cpu-q
-#SBATCH --nodes=1
-#SBATCH --ntasks=1
-#SBATCH --cpus-per-task=4
-#SBATCH --mem=4G
+module purge
+module load cuda11.8/toolkit
 
-# Optional: email notifications
-#SBATCH --mail-type=END,FAIL
-#SBATCH --mail-user=your_email@example.com
-
-# =========================
-# LOAD ENVIRONMENT
-# =========================
-
-# If using conda:
-# source ~/miniconda3/etc/profile.d/conda.sh
-# conda activate your_env
-
-# =========================
-# RUN SCRIPT
-# =========================
-echo "Starting job at $(date)"
-echo "Running on node $(hostname)"
-
-python3 sarsa_15by15.py
-
-echo "Finished at $(date)"
+PYTHONNOUSERSITE=1 conda run -p ./conda-taxi python sarsa_15by15.py

@@ -2,7 +2,7 @@
 For each state s, the policy picks argmax_a Q(s,a). This script asks:
   - In how many states do the two algorithms pick the same action?
   - Where do they disagree, and what kind of disagreements are they?
-  - Is the agreement consistent across the 12 seeds?
+  - Is the agreement consistent across the 30 seeds?
 
 Inputs: two .npy files of shape (n_runs, n_states, n_actions) — typically
         multi_masked_qtables.npy for Q-learning and SARSA.

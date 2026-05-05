@@ -7,18 +7,10 @@ import matplotlib.pyplot as plt
 from scipy.stats import wilcoxon
 
 # ----------------- CONFIG -----------------
-# Q-learning summary contains all four configs in one file:
+# Both summaries contain all four configs in one file:
 #   masked_static, unmasked_static, masked_decay, unmasked_decay
 QLEARN = "/home/common/ji-bao-lin/taxi/results/q_learning/multi_passenger/checkpoints/summary.json"
-
-# SARSA summaries are split across two files (decay vs non-decay), each with masked/unmasked.
-# Map each Q-learning config key to its SARSA source file + key.
-SARSA_SOURCES = {
-    "masked_static":   ("/home/common/ji-bao-lin/taxi/results/sarsa/multi/multi_summary.json",       "masked"),
-    "unmasked_static": ("/home/common/ji-bao-lin/taxi/results/sarsa/multi/multi_summary.json",       "unmasked"),
-    "masked_decay":    ("/home/common/ji-bao-lin/taxi/results/sarsa_decay/multi/multi_summary.json", "masked"),
-    "unmasked_decay":  ("/home/common/ji-bao-lin/taxi/results/sarsa_decay/multi/multi_summary.json", "unmasked"),
-}
+SARSA  = "/home/common/ji-bao-lin/taxi/results/sarsa/multi_passenger/checkpoints/summary.json" 
 
 # Which configs to plot. Comment out any you don't want.
 CONFIGS_TO_RUN = [
@@ -29,6 +21,7 @@ CONFIGS_TO_RUN = [
 ]
 
 OUT_DIR = Path("plots")
+OUT_DIR.mkdir(parents=True, exist_ok=True)
 # ------------------------------------------
 
 
@@ -88,7 +81,7 @@ def make_boxplot(q_rewards, s_rewards, config_key, out_path):
     ax.set_ylabel("Mean episodic reward (per run)")
     ax.set_title(
         f"Q-learning vs SARSA — {config_key}\n"
-        f"multi-passenger taxi (12 seeds each)"
+        f"multi-passenger taxi (30 seeds each)"
     )
     ax.grid(axis="y", alpha=0.3)
 
@@ -105,12 +98,11 @@ def run_one(config_key):
 
     q_rewards = load_rewards(QLEARN, config_key)
 
-    sarsa_path, sarsa_key = SARSA_SOURCES[config_key]
-    if not Path(sarsa_path).exists():
-        print(f"(SARSA source missing for {config_key}, plotting Q-learning only)")
+    if not Path(SARSA).exists():
+        print(f"(SARSA source missing, plotting Q-learning only)")
         summarize("Q-learning", q_rewards)
         return
-    s_rewards = load_rewards(sarsa_path, sarsa_key)
+    s_rewards = load_rewards(SARSA, config_key)
 
     summarize("Q-learning", q_rewards)
     print()
@@ -118,7 +110,7 @@ def run_one(config_key):
 
     stats_test(q_rewards, s_rewards)
 
-    out_path = OUT_DIR /  f"multi_qlearn_vs_sarsa_boxplot_{config_key}.png"
+    out_path = OUT_DIR / f"multi_qlearn_vs_sarsa_boxplot_{config_key}.png"
     make_boxplot(q_rewards, s_rewards, config_key, out_path)
 
 

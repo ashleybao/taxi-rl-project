@@ -1,0 +1,48 @@
+Run 1/30 seed 58922320
+Run 2/30 seed 58922321
+Run 3/30 seed 58922322
+Run 4/30 seed 58922323
+Run 5/30 seed 58922324
+Run 6/30 seed 58922325
+Run 7/30 seed 58922326
+Run 8/30 seed 58922327
+Run 9/30 seed 58922328
+Run 10/30 seed 58922329
+Run 11/30 seed 58922330
+Run 12/30 seed 58922331
+Run 13/30 seed 58922332
+Run 14/30 seed 58922333
+Run 15/30 seed 58922334
+Run 16/30 seed 58922335
+Run 17/30 seed 58922336
+Run 18/30 seed 58922337
+Run 19/30 seed 58922338
+Run 20/30 seed 58922339
+Run 21/30 seed 58922340
+Run 22/30 seed 58922341
+Run 23/30 seed 58922342
+Run 24/30 seed 58922343
+Run 25/30 seed 58922344
+Run 26/30 seed 58922345
+Run 27/30 seed 58922346
+Run 28/30 seed 58922347
+Run 29/30 seed 58922348
+Run 30/30 seed 58922349
+
+Done. Files written:
+  results/15by15map/q_learning/q_learning_epsilon_comparison.png
+  results/15by15map/q_learning/q_learning_epsilon_schedule_effect.png
+  results/15by15map/q_learning/checkpoints/summary.json
+  results/15by15map/q_learning/checkpoints/best_masked_static.npz
+  results/15by15map/q_learning/checkpoints/best_unmasked_static.npz
+  results/15by15map/q_learning/checkpoints/best_masked_decay.npz
+  results/15by15map/q_learning/checkpoints/best_unmasked_decay.npz
+  results/15by15map/q_learning/q_tables/masked_static_qtables.npy
+  results/15by15map/q_learning/q_tables/unmasked_static_qtables.npy
+  results/15by15map/q_learning/q_tables/masked_decay_qtables.npy
+  results/15by15map/q_learning/q_tables/unmasked_decay_qtables.npy
+  results/15by15map/q_learning/rewards/masked_static_rewards.npy       # shape: (30, 10000)
+  results/15by15map/q_learning/rewards/unmasked_static_rewards.npy     # shape: (30, 10000)
+  results/15by15map/q_learning/rewards/masked_decay_rewards.npy        # shape: (30, 10000)
+  results/15by15map/q_learning/rewards/unmasked_decay_rewards.npy      # shape: (30, 10000)
+
