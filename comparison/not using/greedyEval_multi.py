@@ -1,18 +1,5 @@
 """
-greedy_eval.py
-
-Run greedy (epsilon=0) evaluation on trained Q-tables and compare Q-learning vs SARSA.
-
-This answers a different question than the training-reward comparison:
-  - Training reward: how well did the agent perform during training (with exploration)?
-  - Greedy reward: how good is the LEARNED POLICY itself, with no exploration?
-
-Q-learning is supposed to learn the optimal greedy policy, so this evaluation
-mode is closer to what Q-learning is actually optimizing for.
-
-Usage:
-    Edit the paths and ENV_MAKER below, then run:
-        python greedy_eval.py
+Run greedy (epsilon=0) evaluation on trained Q-tables and compare Q-learning vs SARSA. - for multi
 """
 
 import numpy as np
